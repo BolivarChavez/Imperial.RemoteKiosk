@@ -1,0 +1,83 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Opciones.master.cs" Inherits="RemoteKiosk.Opciones" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+  	<title>Consola del Kiosko de Consultas de Informacion de Colaboradores</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+	<link rel="stylesheet" href="css/stylemaster.css">
+
+	<asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+<%--        <div class="container-fluid">
+          <div class="row text-white text-center">
+            <div class="col-2 bg-dark border">DIV 1</div>
+            <div class="col-10 bg-dark border">DIV 2</div>
+          </div>
+        </div>--%>
+
+		<div class="wrapper d-flex align-items-stretch">
+			<nav id="sidebar">
+				<div class="custom-menu">
+					<button type="button" id="sidebarCollapse" class="btn btn-primary">
+						<i class="fa fa-bars"></i>
+						<span class="sr-only">Toggle Menu</span>
+					</button>
+				</div>
+                <div class="p-4">
+                    <h1><a href="#" class="logo">Kiosko Virtual <span>Servicio de consulta de informacion de colaboradores</span></a></h1>
+                    <ul class="list-unstyled components mb-5">
+                        <li id="Opcion02">
+                            <a href="#"><span class="fa fa-money mr-3" style="color:white"></span> Sobres de Pago</a>
+                        </li>
+                        <li id="Opcion05">
+                            <a href="#"><span class="fa fa-file-text mr-3" style="color:white"></span> Documentos</a>
+                        </li>
+                        <li id="Opcion07">
+                            <a href="#"><span class="fa fa-close mr-3" style="color:white"></span> Salir</a>
+                        </li>
+                    </ul>
+                    <div class="footer">
+                    <p>
+                        Copyright &copy;<script>document.write(new Date().getFullYear());</script> <br /> Todos los derechos reservados.
+                    </p>
+                    </div>
+                </div>
+    	    </nav>
+            <div id="Contenedor" style="width:100%; float:left; color:black">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+		</div>
+    </form>
+
+    <script type="text/javascript">
+
+        document.getElementById("Opcion02").onclick = function () {
+            location.href = "RolesPago.aspx";
+        };
+
+        document.getElementById("Opcion05").onclick = function () {
+            location.href = "VistaDocumentos.aspx";
+        };
+
+        document.getElementById("Opcion07").onclick = function () {
+            location.href = "Inicio.aspx";
+        };
+
+        window.history.forward();
+    </script> 
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

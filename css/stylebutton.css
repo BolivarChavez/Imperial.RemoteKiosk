@@ -1,0 +1,17 @@
+﻿button {
+    background: #EC7063;
+    color: #ffffff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: none;
+    padding: 12px 60px;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 6px;
+}
+
+    button:hover {
+        background-color: #B03A2E;
+        transition-duration: 5s;
+    }
