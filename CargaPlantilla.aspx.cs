@@ -104,11 +104,11 @@ namespace RemoteKiosk
             foreach (DataRow row in data.Rows)
             {
                 cedula = row[0].ToString();
-                anio = int.Parse(row[0].ToString());
-                mes = int.Parse(row[0].ToString());
-                periodo = int.Parse(row[0].ToString());
-                desde = DateTime.Parse(row[0].ToString());
-                hasta = DateTime.Parse(row[0].ToString());
+                anio = int.Parse(row[2].ToString());
+                mes = int.Parse(row[3].ToString());
+                periodo = int.Parse(row[3].ToString());
+                desde = DateTime.Parse(row[4].ToString());
+                hasta = DateTime.Parse(row[5].ToString());
 
                 for(i=1; i<=7; i++)
                 {
@@ -120,10 +120,10 @@ namespace RemoteKiosk
                     parametros1.pr_periodo = periodo;
                     parametros1.pr_desde = desde;
                     parametros1.pr_hasta = hasta;
-                    parametros1.pr_concepto = "CONCEPTO";
-                    parametros1.pr_ingreso = double.Parse(row[1 + i].ToString());
+                    parametros1.pr_concepto = decript.Encriptar(ConceptoIngreso(i));
+                    parametros1.pr_ingreso = double.Parse(row[6 + i].ToString());
                     parametros1.pr_descuento = 0;
-                    parametros1.pr_rol = "ROL DE PAGO";
+                    parametros1.pr_rol = decript.Encriptar("ROL DE PAGO MENSUAL");
 
                     GrabarTransaccion(parametros1);
                 }
@@ -138,10 +138,10 @@ namespace RemoteKiosk
                     parametros1.pr_periodo = periodo;
                     parametros1.pr_desde = desde;
                     parametros1.pr_hasta = hasta;
-                    parametros1.pr_concepto = "CONCEPTO";
+                    parametros1.pr_concepto = decript.Encriptar(ConceptoDescuento(i));
                     parametros1.pr_ingreso = 0;
-                    parametros1.pr_descuento = double.Parse(row[9 + i].ToString());
-                    parametros1.pr_rol = "ROL DE PAGO";
+                    parametros1.pr_descuento = Math.Abs(double.Parse(row[14 + i].ToString()));
+                    parametros1.pr_rol = decript.Encriptar("ROL DE PAGO MENSUAL");
 
                     GrabarTransaccion(parametros1);
                 }
@@ -218,5 +218,98 @@ namespace RemoteKiosk
                 CargaRoles(Server.MapPath("~") + ConfigurationManager.AppSettings["PathDocs"] + @"\" + sArchivo2);
             }
         }
+
+        private string ConceptoIngreso(int indice)
+        {
+            string concepto;
+
+            switch (indice)
+            {
+                case 1:
+                    concepto = "Sueldo";
+                    break;
+
+                case 2:
+                    concepto = "Bonos - Comisiones";
+                    break;
+
+                case 3:
+                    concepto = "Otros Ingresos";
+                    break;
+
+                case 4:
+                    concepto = "Ingresos Adicionales por Trabajos Varios";
+                    break;
+
+                case 5:
+                    concepto = "Horas Extras";
+                    break;
+
+                case 6:
+                    concepto = "Movilizacion";
+                    break;
+
+                case 7:
+                    concepto = "Fondos de Reserva";
+                    break;
+
+                default:
+                    concepto = "No Definido";
+                    break;
+            }
+
+            return concepto;
+        }
+
+        private string ConceptoDescuento(int indice)
+        {
+            string concepto;
+
+            switch (indice)
+            {
+                case 1:
+                    concepto = "Aporte Personal IESS";
+                    break;
+
+                case 2:
+                    concepto = "Prestamos Quirografarios";
+                    break;
+
+                case 3:
+                    concepto = "Prestamos Hipotecarios";
+                    break;
+
+                case 4:
+                    concepto = "Extension de Salud (Conyuge)";
+                    break;
+
+                case 5:
+                    concepto = "Anticipo Rol Quincena";
+                    break;
+
+                case 6:
+                    concepto = "Prestamos Compañia";
+                    break;
+
+                case 7:
+                    concepto = "Anticipos de Sueldo";
+                    break;
+
+                case 8:
+                    concepto = "Faltas y Multas";
+                    break;
+
+                case 9:
+                    concepto = "Otros Descuentos";
+                    break;
+
+                default:
+                    concepto = "No Definido";
+                    break;
+            }
+
+            return concepto;
+        }
+
     }
 }
