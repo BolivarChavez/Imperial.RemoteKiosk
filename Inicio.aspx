@@ -17,17 +17,17 @@
 <body>
     <h1 style="color: #8A0010">Ingreso al Kiosko Virtual Empresarial</h1>
     <div class="w3l-login-form">
-        <h2>Ingrese sus credenciales aqui</h2>
+        <h2 style="color:white">Ingrese sus credenciales aqui</h2>
         <form runat="server">
             <div class=" w3l-form-group">
-                <label>Usuario:</label>
+                <label style="font-weight:bold;">Usuario:</label>
                 <div class="group">
                     <i class="fas fa-user"></i>
                     <asp:TextBox ID="Txtusuario" runat="server" class="form-control" Text=""></asp:TextBox>
                 </div>
             </div>
             <div class=" w3l-form-group">
-                <label>Contraseña:</label>
+                <label style="font-weight:bold;">Contraseña:</label>
                 <div class="group">
                     <i class="fas fa-unlock"></i>
                     <asp:TextBox ID="Txtpassword" runat="server" class="form-control" Text="" TextMode="Password"></asp:TextBox>
@@ -40,7 +40,7 @@
         </form>
     </div>
     <footer>
-        <p class="copyright-agileinfo"> &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados.</p>
+        <p class="copyright-agileinfo" style="color: #8A0010; font-weight:bold;"> &copy;<script>document.write(new Date().getFullYear());</script> Todos los derechos reservados.</p>
     </footer>
     <script type="text/javascript">
         function disableBack() { window.history.forward(); }

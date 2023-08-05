@@ -104,6 +104,7 @@
     <Content Include="image\document.png" />
     <Content Include="image\img-sp.png" />
     <Content Include="image\img-sp1.png" />
+    <Content Include="image\LogoImperial.png" />
     <Content Include="InfoConsola.aspx" />
     <Content Include="InfoPersonal.aspx" />
     <Content Include="InfoRol.aspx" />
@@ -120,6 +121,7 @@
     <Content Include="InicFonts\fa-solid-900.woff" />
     <Content Include="InicFonts\fa-solid-900.woff2" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\jquery-3.4.1.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\popper.js" />

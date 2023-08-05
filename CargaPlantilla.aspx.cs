@@ -71,7 +71,7 @@ namespace RemoteKiosk
                 parametros1.pc_telefono = decript.Encriptar(row[9].ToString());
                 parametros1.pc_email = decript.Encriptar(row[11].ToString());
                 parametros1.pc_fecha_actualizacion = DateTime.Today;
-                parametros1.pc_estado = decript.Encriptar("A");
+                parametros1.pc_estado = decript.Encriptar(row[20].ToString());
                 parametros1.pc_operador = decript.Encriptar(Session["UserAdmin"].ToString().Trim());
                 parametros1.pc_fecha_registro = DateTime.Today;
 
@@ -151,6 +151,8 @@ namespace RemoteKiosk
         private void GrabarPersona(ColaboradorExt colaborador)
         {
             string url, stoken;
+            int retorno;
+            string descripcion;
 
             stoken = Session["SesionToken"].ToString().Trim();
             url = ConfigurationManager.AppSettings["PathUrlTrn"];
@@ -171,12 +173,21 @@ namespace RemoteKiosk
                 var result = streamReader.ReadToEnd().ToString();
                 var serializer = new JavaScriptSerializer();
                 List<ProcRetorno> l_retorno = serializer.Deserialize<List<ProcRetorno>>(result);
+                retorno = l_retorno[0].retorno;
+                descripcion = l_retorno[0].descripcion;
+            }
+
+            if (retorno != 0)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "RegistroTrabajador", "alert('" + descripcion + "')", true);
             }
         }
 
         private void GrabarTransaccion(TransaccionExt transaccion)
         {
             string url, stoken;
+            int retorno;
+            string descripcion;
 
             stoken = Session["SesionToken"].ToString().Trim();
             url = ConfigurationManager.AppSettings["PathUrlTrn"];
@@ -197,6 +208,13 @@ namespace RemoteKiosk
                 var result = streamReader.ReadToEnd().ToString();
                 var serializer = new JavaScriptSerializer();
                 List<ProcRetorno> l_retorno = serializer.Deserialize<List<ProcRetorno>>(result);
+                retorno = l_retorno[0].retorno;
+                descripcion = l_retorno[0].descripcion;
+            }
+
+            if (retorno != 0)
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "RegistroTrabajador", "alert('" + descripcion + "')", true);
             }
         }
 
@@ -310,6 +328,5 @@ namespace RemoteKiosk
 
             return concepto;
         }
-
     }
 }

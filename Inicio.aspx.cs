@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Linq;
+using System.Web.UI;
 
 namespace RemoteKiosk
 {
@@ -29,6 +30,8 @@ namespace RemoteKiosk
             LoginParam parametros = new LoginParam();
             Cifrado decript = new Cifrado();
             string url;
+            int retorno;
+            string descripcion;
 
             url = ConfigurationManager.AppSettings["PathUrlSec"];
             parametros.usuario = decript.Encriptar(Txtusuario.Text.Trim());
@@ -51,12 +54,20 @@ namespace RemoteKiosk
                 var result = streamReader.ReadToEnd().ToString();
                 var serializer = new JavaScriptSerializer();
                 List<LoginRetorno> abcList = serializer.Deserialize<List<LoginRetorno>>(result);
+                retorno = abcList[0].retorno;
+                descripcion = abcList[0].descripcion;
                 Session["SesionToken"] = "******"; //abcList[0].descripcion;
-                //abcList[0].retorno 
             }
 
-            ConsultaInfoUsuario(Txtusuario.Text.Trim(), Session["SesionToken"].ToString());
-            Response.Redirect("InfoConsola.aspx");
+            if (retorno == 0)
+            {
+                ConsultaInfoUsuario(Txtusuario.Text.Trim(), Session["SesionToken"].ToString());
+                Response.Redirect("InfoConsola.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginUsuario", "alert('" + descripcion + "')", true);
+            }
         }
 
         protected void AdmAccess_ServerClick(object sender, EventArgs e)
@@ -64,6 +75,8 @@ namespace RemoteKiosk
             LoginParam parametros = new LoginParam();
             Cifrado decript = new Cifrado();
             string url;
+            int retorno;
+            string descripcion;
 
             url = ConfigurationManager.AppSettings["PathUrlSec"];
             parametros.usuario = decript.Encriptar(Txtusuario.Text.Trim());
@@ -86,12 +99,20 @@ namespace RemoteKiosk
                 var result = streamReader.ReadToEnd().ToString();
                 var serializer = new JavaScriptSerializer();
                 List<LoginRetorno> abcList = serializer.Deserialize<List<LoginRetorno>>(result);
+                retorno = abcList[0].retorno;
+                descripcion = abcList[0].descripcion;
                 Session["SesionToken"] = "******"; //abcList[0].descripcion;
-                //abcList[0].retorno 
-                ConsultaInfoCliente(Txtusuario.Text.Trim(), Session["SesionToken"].ToString());
             }
 
-            Response.Redirect("AdminConsola.aspx");
+            if (retorno == 0)
+            {
+                ConsultaInfoCliente(Txtusuario.Text.Trim(), Session["SesionToken"].ToString());
+                Response.Redirect("AdminConsola.aspx");
+            }
+            else
+            {
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "LoginAdministrador", "alert('" + descripcion + "')", true);
+            }
         }
 
         private async void ConsultaInfoCliente(string UsrCliente, string TokenAuth)
